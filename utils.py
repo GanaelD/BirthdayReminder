@@ -1,15 +1,24 @@
+from datetime import date, timedelta
+
+CURR_YEAR = date.today().year
+
+
 def create_birthday_event(person_name, month, day, reminder="popup"):
+    # Used to get end date of event, handle end of month
+    end_date = date(year=CURR_YEAR, month=month, day=day) + timedelta(days=1)
     return {
         "calendarId": "primary",
-        "description": "Birthday of {person_name}",
+        "description": f"Birthday of {person_name}",
         "end": {
-            "date": ""
+            "date": f"{end_date.year}-{end_date.month}-{end_date.day}",
+            "timeZone": "Europe/Paris"
         },
         "start": {
-            "date": ""
+            "date": f"{CURR_YEAR}-{month}-{day}",
+            "timeZone": "Europe/Paris"
         },
         "recurrence": [
-            "RRULE"
+            "RRULE:FREQ=YEARLY;COUNT=1"
         ]
     }
 
