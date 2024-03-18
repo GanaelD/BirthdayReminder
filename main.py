@@ -56,7 +56,7 @@ def main():
             event_result = (
                 service
                 .events()
-                .insert(calendarId="primary", body=birthday_event, headers={})
+                .insert(calendarId="primary", body=birthday_event)
                 .execute()
             )
 
