@@ -1,11 +1,17 @@
-from google.oauth2 import service_account
-
-SCOPES = ["https://www.googleapis.com/auth/calendar"]
-
-def get_creds():
-    credentials = service_account.Credentials.from_service_account_file("auth/key.json")
-    scoped_credentials = credentials.with_scopes(SCOPES)
-    return credentials, scoped_credentials
+def create_birthday_event(person_name, month, day, reminder="popup"):
+    return {
+        "calendarId": "primary",
+        "description": "Birthday of {person_name}",
+        "end": {
+            "date": ""
+        },
+        "start": {
+            "date": ""
+        },
+        "recurrence": [
+            "RRULE"
+        ]
+    }
 
 
 def get_birthdays(path_to_birthdays):
