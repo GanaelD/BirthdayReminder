@@ -10,7 +10,7 @@ SCOPES = ["https://www.googleapis.com/auth/calendar.events"]
 
 SECRET_PATH = "../auth/secret.json"
 TOKEN_PATH = "../auth/token.json"
-BIRTHDAYS_PATH = "../birthdays.txt"
+BIRTHDAYS_PATH = "../data/birthdays.txt"
 birthdays = utils.get_birthdays(BIRTHDAYS_PATH)
 
 
@@ -28,12 +28,11 @@ def main():
             print(f"Creating event for birthday of {birthday[0]}")
             birthday_event = utils.create_birthday_event(*birthday)
 
-            event_result = (
-                service
-                .events()
-                .insert(calendarId="primary", body=birthday_event)
-                .execute()
-            )
+            (service
+             .events()
+             .insert(calendarId="primary", body=birthday_event)
+             .execute()
+             )
 
     except HttpError as error:
         print(f"An error occurred: {error}")

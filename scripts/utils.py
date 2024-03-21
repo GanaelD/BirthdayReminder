@@ -6,7 +6,8 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 CURR_YEAR = date.today().year
-SCOPES = ["https://www.googleapis.com/auth/calendar.events"]
+SCOPES = ["https://www.googleapis.com/auth/calendar.events",
+          "https://www.googleapis.com/auth/calendar"]
 SECRET_PATH = "../auth/secret.json"
 TOKEN_PATH = "../auth/token.json"
 
@@ -52,24 +53,15 @@ def create_birthday_event(person_name: str, month: int, day: int,
             "date": f"{first_year_event}-{month}-{day}",
             "timeZone": time_zone
         },
-        "reminders": {
-            "overrides": [
-                {
-                    "method": reminder_method,
-                    "minutes": reminder_min,
-                }
-            ],
-            "useDefault": False
-        },
-        #"recurrence": [
-        #    "RRULE:FREQ=YEARLY"
-        #]
+        "recurrence": [
+            "RRULE:FREQ=YEARLY"
+        ]
     }
 
 
 def get_birthdays(path_to_birthdays):
     birthdays = []
-    with open(path_to_birthdays, "r") as f:
+    with open(path_to_birthdays, "r", encoding="utf8") as f:
         for line in f.readlines():
             birthdays.append(line.split(","))
     for birthday in birthdays:
